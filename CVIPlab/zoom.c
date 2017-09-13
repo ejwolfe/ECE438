@@ -8,7 +8,7 @@
 #include "CVIPimage.h"
 #include "CVIPlab.h"
 
-Image *zoom(Image *inputImage, unsigned int row, unsigned int col, unsigned int height, unsigned int width, unsigned int zoomFactor) {
+Image *zoom1(Image *inputImage, unsigned int row, unsigned int col, unsigned int height, unsigned int width, unsigned int zoomFactor) {
 	inputImage = crop(inputImage, row, col, height, width);
 	byte **image, **tempImage;
 	unsigned numberBands = getNoOfBands_Image(inputImage);

@@ -33,6 +33,7 @@
 #include "CVIPdef.h"
 #include "CVIPimage.h"
 #include "CVIPlab.h"
+#include "CVIPgeometry.h"
 //#include "CVIPview.h"
 
 #define CASE_MAX 20
@@ -45,6 +46,7 @@ application program */
 /*
 ** function declarations
 */
+Image *zoom_SetupLib(Image *inputImage);
 Image *zoom_Setup(Image *inputImage);
 Image *crop_Setup(Image *inputImage);
 Image *threshold_Setup(Image *inputImage);
@@ -157,7 +159,7 @@ void main_cviplab() {
 				break;
 			}
 
-			view_Image(cvipImage, "zoom");
+			view_Image(cvipImage, "zoom zero-order");
 
 			delete_Image(cvipImage);
 
@@ -172,7 +174,13 @@ void main_cviplab() {
 				break;
 			}
 
-			view_Image(cvipImage, "crop");
+			cvipImage = zoom_SetupLib(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "zoom fails");
+				break;
+			}
+
+			view_Image(cvipImage, "zoom from lib");
 
 			delete_Image(cvipImage);
 
@@ -281,5 +289,28 @@ Image *zoom_Setup(Image *inputImage) {
 	print_CVIP("\n\t\tEnter the zoom factor of the new image: ");
 	zoomFactor = getInt_CVIP(10, 0, 10);
 	
-	return zoom(inputImage, r, c, height, width, zoomFactor);
+	return zoom1(inputImage, r, c, height, width, zoomFactor);
+}
+
+Image *zoom_SetupLib(Image *inputImage) {
+	unsigned int r, c, width, height, quadrant;
+	float zoomFactor;
+
+	width = getNoOfCols_Image(inputImage);
+	height = getNoOfRows_Image(inputImage);
+
+	print_CVIP("\n\t\tEnter the quadrant: ");
+	quadrant= getInt_CVIP(10, 0, 6);
+	print_CVIP("\n\t\tEnter the offset for r: ");
+	r = getInt_CVIP(10, 0, height);
+	print_CVIP("\n\t\tEnter the offset for c: ");
+	c = getInt_CVIP(10, 0, width);
+	print_CVIP("\n\t\tEnter the height of the new image: ");
+	height = getInt_CVIP(10, 0, height - r);
+	print_CVIP("\n\t\tEnter the width of the new image: ");
+	width = getInt_CVIP(10, 0, width - c);
+	print_CVIP("\n\t\tEnter the zoom factor of the new image: ");
+	zoomFactor = getFloat_CVIP(0, 10);
+
+	return zoom(inputImage, quadrant, r, c, height, width, zoomFactor);
 }
