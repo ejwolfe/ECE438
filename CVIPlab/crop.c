@@ -8,18 +8,22 @@
 #include "CVIPimage.h"
 #include "CVIPlab.h"
 #include "CVIPgeometry.h"
+#include "CVIPmatrix.h"
 
 Image *crop(Image *inputImage, unsigned int offsetX, unsigned int offsetY, unsigned int height, unsigned int width) {
-	Matrix *originalImage, *croppedImage;
+	byte **image, **tempImage;
 	unsigned numberBands = getNoOfBands_Image(inputImage);
-	for (int i = 0; i < numberBands; i++) {
-		originalImage = getBand_Image(inputImage, i);
-		croppedImage = crop_Matrix(originalImage, offsetY, offsetX, height, width);
-		if (!croppedImage) {
-			return 0;
+	unsigned numberRows = getNoOfRows_Image(inputImage);
+	unsigned numberCols = getNoOfCols_Image(inputImage);
+	Image *temp = image_allocate(getFileFormat_Image(inputImage), getColorSpace_Image(inputImage), numberBands, height, width, getDataType_Image(inputImage), getDataFormat_Image(inputImage));
+	for(int b = 0; b < numberBands; b++) {
+		image = getData_Image(inputImage, b);
+		tempImage = getData_Image(temp, b);
+		for (int r = offsetX, x = 0; r < height+offsetX; r++, x++) {
+			for (int c = offsetY, y = 0; c < width+offsetY; c++, y++) {
+				tempImage[x][y] = image[r][c];
+			}
 		}
-		setBand_Image(inputImage, croppedImage, i);
-		delete_Matrix(originalImage);
 	}
-	return (inputImage);
+	return (temp);
 }

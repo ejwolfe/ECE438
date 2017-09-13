@@ -151,6 +151,12 @@ void main_cviplab() {
 				break;
 			}
 
+			cvipImage = zoom_Setup(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "zoom fails");
+				break;
+			}
+
 			view_Image(cvipImage, "crop");
 
 			delete_Image(cvipImage);
@@ -259,17 +265,21 @@ Image *crop_Setup(Image *inputImage) {
 }
 
 Image *zoom_Setup(Image *inputImage) {
-	unsigned int height, width, zoomFactor;
+	unsigned int r, c, width, height, zoomFactor;
 
-	width = getNoOfRows_Image(inputImage);
-	height = getNoOfCols_Image(inputImage);
+	width = getNoOfCols_Image(inputImage);
+	height = getNoOfRows_Image(inputImage);
 
+	print_CVIP("\n\t\tEnter the offset for r: ");
+	r = getInt_CVIP(10, 0, width);
+	print_CVIP("\n\t\tEnter the offset for c: ");
+	c = getInt_CVIP(10, 0, height);
 	print_CVIP("\n\t\tEnter the height of the new image: ");
-	height = getInt_CVIP(10, 0, height);
+	height = getInt_CVIP(10, 0, height - r);
 	print_CVIP("\n\t\tEnter the width of the new image: ");
-	width = getInt_CVIP(10, 0, width);
-	print_CVIP("\n\t\tEnter the zoomFactor of the image: ");
-	zoomFactor = getInt_CVIP(10, 1, 10);
+	width = getInt_CVIP(10, 0, width - c);
+	print_CVIP("\n\t\tEnter the zoom factor of the new image: ");
+	width = getInt_CVIP(10, 0, 10);
 	
-	return zoom(inputImage, height, width, zoomFactor);
+	return zoom(inputImage, r, c, height, width, zoomFactor);
 }
