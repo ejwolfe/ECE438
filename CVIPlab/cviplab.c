@@ -76,7 +76,7 @@ void main_cviplab() {
 		print_CVIP("\t\t2.\tThreshold Operation\n");
 		print_CVIP("\t\t3.\tImage Crop\n");
 		print_CVIP("\t\t4.\tImage Zoom\n");
-		print_CVIP("\t\t5.\tImage Rotate\n");
+		print_CVIP("\t\t5.\tImage Zoom from library\n");
 		print_CVIP("\n\nCVIPlab>>");
 
 
