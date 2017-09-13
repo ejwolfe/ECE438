@@ -157,7 +157,7 @@ void main_cviplab() {
 				break;
 			}
 
-			view_Image(cvipImage, "crop");
+			view_Image(cvipImage, "zoom");
 
 			delete_Image(cvipImage);
 
@@ -279,7 +279,7 @@ Image *zoom_Setup(Image *inputImage) {
 	print_CVIP("\n\t\tEnter the width of the new image: ");
 	width = getInt_CVIP(10, 0, width - c);
 	print_CVIP("\n\t\tEnter the zoom factor of the new image: ");
-	width = getInt_CVIP(10, 0, 10);
+	zoomFactor = getInt_CVIP(10, 0, 10);
 	
 	return zoom(inputImage, r, c, height, width, zoomFactor);
 }
