@@ -12,8 +12,8 @@ Image *area(Image *inputImage) {
 	byte **image;
 	int area = 0;
 	double rsum = 0.0, csum = 0.0;
-	unsigned numberRows = getNoOfRows_Image(inputImage);
-	unsigned numberCols = getNoOfCols_Image(inputImage);
+	unsigned int numberRows = getNoOfRows_Image(inputImage);
+	unsigned int numberCols = getNoOfCols_Image(inputImage);
 	image = getData_Image(inputImage, 0);
 	for (int r = 0; r < numberRows; r++) {
 		for (int c = 0; c < numberCols; c++) {
