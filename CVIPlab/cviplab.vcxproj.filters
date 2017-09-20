@@ -68,6 +68,15 @@
     <ClCompile Include="crop.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="zoom.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="area.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="euler.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\TEst CVIPLab\cviptools 5.6j\CVIPLibraries\Display\Debug\Display.log" />

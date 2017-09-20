@@ -46,6 +46,7 @@ application program */
 /*
 ** function declarations
 */
+Image *euler_Setup(Image *inputImage);
 Image *area_Setup(Image *inputImage);
 Image *zoom_SetupLib(Image *inputImage);
 Image *zoom_Setup(Image *inputImage);
@@ -79,6 +80,7 @@ void main_cviplab() {
 		print_CVIP("\t\t4.\tImage Zoom\n");
 		print_CVIP("\t\t5.\tImage Zoom from library\n");
 		print_CVIP("\t\t6.\tFind object's area\n");
+		print_CVIP("\t\t7.\tFind object's Euler number\n");
 		print_CVIP("\n\nCVIPlab>>");
 
 
@@ -204,6 +206,27 @@ void main_cviplab() {
 			}
 
 			view_Image(cvipImage, "Area of object");
+
+			delete_Image(cvipImage);
+
+			break;
+
+		case 7:
+			/*Get the input image */
+			cvipImage = input();
+			if (cvipImage == NULL)
+			{
+				error_CVIP("main", "could not read input image");
+				break;
+			}
+
+			cvipImage = euler_Setup(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "euler fails");
+				break;
+			}
+
+			view_Image(cvipImage, "Euler of object");
 
 			delete_Image(cvipImage);
 
@@ -340,4 +363,8 @@ Image *zoom_SetupLib(Image *inputImage) {
 
 Image *area_Setup(Image *inputImage) {
 	return area(inputImage);
+}
+
+Image *euler_Setup(Image *inputImage) {
+	return euler(inputImage);
 }

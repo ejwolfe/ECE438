@@ -27,6 +27,6 @@ Image *area(Image *inputImage) {
 	rsum = (1.0 / area)*rsum;
 	csum = (1.0 / area)*csum;
 	printf("Area: %d\n", area);
-	printf("Center: ( %.1f , %.1f )\n", rsum, csum);
+	printf("Center: ( %d , %d )\n", (int)rsum, (int)csum);
 	return inputImage;
 }

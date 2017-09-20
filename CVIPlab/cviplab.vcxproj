@@ -169,15 +169,18 @@
     <ClInclude Include="StdAfx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="area.c" />
     <ClCompile Include="crop.c" />
     <ClCompile Include="cviplab.c" />
     <ClCompile Include="cviplab_project.cpp" />
     <ClCompile Include="Display.c" />
+    <ClCompile Include="euler.c" />
     <ClCompile Include="RamViewerDlg.cpp" />
     <ClCompile Include="relremap.c" />
     <ClCompile Include="StatsDlg.cpp" />
     <ClCompile Include="StdAfx.cpp" />
     <ClCompile Include="threshold_lab.c" />
+    <ClCompile Include="zoom.c" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\TEst CVIPLab\cviptools 5.6j\CVIPLibraries\Display\Debug\Display.log" />
