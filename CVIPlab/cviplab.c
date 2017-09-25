@@ -8,7 +8,7 @@
 *           Description: This  is the skeleton program for the Computer Vision
 *			 and Image Processing Labs
 *   Initial Coding Date: April 23, 1996
-*   Last update Date: August 30, 2017
+*   Last update Date: September 20, 2017
 *   .NET version:     September 21, 2006
 *           Portability: Standard (ANSI) C
 *             Credit(s): Scott Umbaugh, Zhen Li, Kun Luo,Dejun Zhang,Wenjun(Evan) Bian, Rohini Dahal, Norsang Lama
@@ -64,7 +64,7 @@ void main_cviplab() {
 	int		  choice;
 	CVIP_BOOLEAN  done = CVIP_NO;
 
-	
+
 	print_CVIP("\n\n\n\n***************************************");
 	print_CVIP("****************************  ");
 	print_CVIP("\n*\t\t Computer Vision and Image Processing Lab\t  *");
@@ -120,13 +120,13 @@ void main_cviplab() {
 			/*
 			** display the resultant image
 			*/
-			
+
 			view_Image(cvipImage, "threshold");
-		
+
 			delete_Image(cvipImage);
 
 			break;
-		
+
 		case 3:
 			/*Get the input image */
 			cvipImage = input();
@@ -141,9 +141,9 @@ void main_cviplab() {
 				error_CVIP("main", "crop fails");
 				break;
 			}
-			
+
 			view_Image(cvipImage, "crop");
-			
+
 			delete_Image(cvipImage);
 
 			break;
@@ -334,7 +334,7 @@ Image *zoom_Setup(Image *inputImage) {
 	width = getInt_CVIP(10, 0, width - c);
 	print_CVIP("\n\t\tEnter the zoom factor of the new image: ");
 	zoomFactor = getInt_CVIP(10, 0, 10);
-	
+
 	return zoom1(inputImage, r, c, height, width, zoomFactor);
 }
 
