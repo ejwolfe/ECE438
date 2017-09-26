@@ -9,12 +9,14 @@
 #include "CVIPlab.h"
 #include <cmath>
 
-float squareRoot(float **image, int r, int c);
-float absolute(float **image, int r, int c);
+float verticalEdge(float **image, int r, int c);
+float horizontalEdge(float **image, int r, int c);
+float edgeDirection(float s1, float s2);
+float edgeMagnitude(float s1, float s2);
 
-Image *roberts(Image *inputImage, bool flag){
+Image *sobel(Image *inputImage){
     Image *outputImage;
-    float **outputData, **inputData;
+    float **inputData, **outputData;
     unsigned int numberRows = getNoOfRows_Image(inputImage);
     unsigned int numberCols = getNoOfCols_Image(inputImage);
     unsigned int numberBands = getNoOfBands_Image(inputImage);
@@ -24,12 +26,7 @@ Image *roberts(Image *inputImage, bool flag){
         outputData = getData_Image(outputImage, bands);
         for (int r = 1; r < numberRows-1; r++){
             for (int c = 1; c < numberCols-1; c++){
-                if (flag == 0){
-                    outputData[r][c] = squareRoot(inputData, r, c);
-                }
-                else{
-                    outputData[r][c] = absolute(inputData, r, c);
-                }
+                
             }
         }
     }
@@ -38,10 +35,20 @@ Image *roberts(Image *inputImage, bool flag){
     return outputImage;
 }
 
-float squareRoot(float **image, int r, int c){
-    return sqrt((image[r][c] - image[r-1][c-1])^2 + (image[r][c-1] - image[r-1][c])^2);
+float verticalEdge(float **image, int r, int c){
+    return (image[r-1][c-1]*-1) + (image[r-1][c] * -2) + (image[r-1][c+1] * -1)
+    + (image[r+1][c-1] * 1) + (image[r+1][c] * 2) + (image[r+1][c+1] * 1);
 }
 
-float absolute(float **image, int r, int c){
-    return abs(image[r][c] - image[r-1][c-1]) + abs(image[r][c-1]-image[r-1][c]);
+float horizontalEdge(float **image, int r, int c){
+    return (image[r-1][c-1]* -1) + (image[r][c-1] * -2) + (image[r+1][c-1] * -1)
+    + (image[r-1][c+1] * 1) + (image[r][c+1] * 2) + (image[r+1][c+1] * 1);
+}
+
+float edgeMagnitude(float s1, float s2){
+    return sqrt(s1^2 + s2^2);
+}
+
+float edgeDirection(float s1, float s2){
+    return atan(s1 / s2);
 }

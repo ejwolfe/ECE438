@@ -46,6 +46,8 @@ application program */
 /*
 ** function declarations
 */
+Image *sobel_Setup(Image *inputImage);
+Image *roberts_Setup(Image *inputImage);
 Image *euler_Setup(Image *inputImage);
 Image *area_Setup(Image *inputImage);
 Image *zoom_SetupLib(Image *inputImage);
@@ -367,4 +369,16 @@ Image *area_Setup(Image *inputImage) {
 
 Image *euler_Setup(Image *inputImage) {
 	return euler(inputImage);
+}
+
+Image *roberts_Setup(Image *inputImage){
+	bool flag;
+	print_CVIP("\n\t\tEnter 0 to run square root and 1 to run absolute: ");
+	flag = getBool_CVIP(10, 0, 1);
+
+	return roberts(inputImage, flag);
+}
+
+Image *sobel_Setup(Image *inputImage){
+	return sobel(inputImage);
 }
