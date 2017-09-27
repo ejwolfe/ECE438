@@ -83,6 +83,8 @@ void main_cviplab() {
 		print_CVIP("\t\t5.\tImage Zoom from library\n");
 		print_CVIP("\t\t6.\tFind object's area\n");
 		print_CVIP("\t\t7.\tFind object's Euler number\n");
+		print_CVIP("\t\t8.\tEdge detection with Roberts\n");
+		print_CVIP("\t\t9.\tEdge detection with Sobel\n");
 		print_CVIP("\n\nCVIPlab>>");
 
 
@@ -233,6 +235,47 @@ void main_cviplab() {
 			delete_Image(cvipImage);
 
 			break;
+		case 8:
+			/*Get the input image */
+			cvipImage = input();
+			if (cvipImage == NULL)
+			{
+				error_CVIP("main", "could not read input image");
+				break;
+			}
+
+			cvipImage = roberts_Setup(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "robert fails");
+				break;
+			}
+
+			view_Image(cvipImage, "Edge detection Roberts");
+
+			delete_Image(cvipImage);
+
+			break;
+
+		case 9:
+			/*Get the input image */
+			cvipImage = input();
+			if (cvipImage == NULL)
+			{
+				error_CVIP("main", "could not read input image");
+				break;
+			}
+
+			cvipImage = sobel_Setup(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "sobel fails");
+				break;
+			}
+
+			view_Image(cvipImage, "Edge detection sobel");
+
+			delete_Image(cvipImage);
+
+			break;
 
 			default:
 			print_CVIP("Sorry ! You Entered a wrong choice ");
@@ -372,9 +415,9 @@ Image *euler_Setup(Image *inputImage) {
 }
 
 Image *roberts_Setup(Image *inputImage){
-	bool flag;
+	boolean flag;
 	print_CVIP("\n\t\tEnter 0 to run square root and 1 to run absolute: ");
-	flag = getBool_CVIP(10, 0, 1);
+	flag = getInt_CVIP(10, 0, 1);
 
 	return roberts(inputImage, flag);
 }

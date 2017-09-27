@@ -29,6 +29,7 @@ Image *euler(Image *inputImage){
 	return inputImage;
 }
 
+
 int convexities(byte **image, int r, int c){
     if (image[r][c] == 255 && image[r][c-1] == 0 && image[r-1][c] == 0 && image[r-1][c-1] == 0){
         return 1;

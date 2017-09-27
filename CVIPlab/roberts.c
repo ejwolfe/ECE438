@@ -7,19 +7,19 @@
 #include "CVIPdef.h"
 #include "CVIPimage.h"
 #include "CVIPlab.h"
-#include <cmath>
 
-float squareRoot(float **image, int r, int c);
-float absolute(float **image, int r, int c);
+float squareRoot(byte **image, int r, int c);
+float absolute(byte **image, int r, int c);
 
-Image *roberts(Image *inputImage, bool flag){
+Image *roberts(Image *inputImage, boolean flag){
     Image *outputImage;
-    float **outputData, **inputData;
+	byte **inputData;
+    float **outputData;
     unsigned int numberRows = getNoOfRows_Image(inputImage);
     unsigned int numberCols = getNoOfCols_Image(inputImage);
     unsigned int numberBands = getNoOfBands_Image(inputImage);
-    outputImage = newImage(PGM, GRAY_SCALE, numberBands, numberRows, numberCols, CVIP_FLOAT, REAL);
-    for (int bands = 0; bands < numberBands, bands++){
+    outputImage = new_Image(PGM, GRAY_SCALE, numberBands, numberRows, numberCols, CVIP_FLOAT, REAL);
+	for (int bands = 0; bands < numberBands; bands++) {
         inputData = getData_Image(inputImage, bands);
         outputData = getData_Image(outputImage, bands);
         for (int r = 1; r < numberRows-1; r++){
@@ -33,15 +33,19 @@ Image *roberts(Image *inputImage, bool flag){
             }
         }
     }
-    outputImage = remap_Image(outputImage, CVIP_BYTE, 0, 255);
+	outputImage = remap_Image(outputImage, CVIP_BYTE, 0, 255);
 
     return outputImage;
 }
 
-float squareRoot(float **image, int r, int c){
-    return sqrt((image[r][c] - image[r-1][c-1])^2 + (image[r][c-1] - image[r-1][c])^2);
+float squareRoot(byte **image, int r, int c){
+	float a = image[r][c] - image[r - 1][c - 1];
+	float b = image[r][c - 1] - image[r - 1][c];
+    return sqrt((a*a) + (b*b));
 }
 
-float absolute(float **image, int r, int c){
-    return abs(image[r][c] - image[r-1][c-1]) + abs(image[r][c-1]-image[r-1][c]);
+float absolute(byte **image, int r, int c){
+	float a = abs(image[r][c] - image[r - 1][c - 1]);
+	float b = abs(image[r][c - 1] - image[r - 1][c]);
+    return a + b;
 }
