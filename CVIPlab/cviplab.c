@@ -34,6 +34,8 @@
 #include "CVIPimage.h"
 #include "CVIPlab.h"
 #include "CVIPgeometry.h"
+#include "fuzzyc.h"
+#include "hist_thresh.h"
 //#include "CVIPview.h"
 
 #define CASE_MAX 20
@@ -46,6 +48,8 @@ application program */
 /*
 ** function declarations
 */
+Image *histThresh_Setup(Image *inputImage);
+Image *fuzzy_Setup(Image *inputImage);
 Image *sobel_Setup(Image *inputImage);
 Image *roberts_Setup(Image *inputImage);
 Image *euler_Setup(Image *inputImage);
@@ -85,6 +89,8 @@ void main_cviplab() {
 		print_CVIP("\t\t7.\tFind object's Euler number\n");
 		print_CVIP("\t\t8.\tEdge detection with Roberts\n");
 		print_CVIP("\t\t9.\tEdge detection with Sobel\n");
+		print_CVIP("\t\t10.\tFuzzy C Segment\n");
+		print_CVIP("\t\t11.\tHist Thresh Segment");
 		print_CVIP("\n\nCVIPlab>>");
 
 
@@ -277,6 +283,48 @@ void main_cviplab() {
 
 			break;
 
+		case 10:
+			/*Get the input image */
+			cvipImage = input();
+			if (cvipImage == NULL)
+			{
+				error_CVIP("main", "could not read input image");
+				break;
+			}
+
+			cvipImage = fuzzy_Setup(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "fuzzy fails");
+				break;
+			}
+
+			view_Image(cvipImage, "Fuzzy C Segement");
+
+			delete_Image(cvipImage);
+
+			break;
+
+		case 11:
+			/*Get the input image */
+			cvipImage = input();
+			if (cvipImage == NULL)
+			{
+				error_CVIP("main", "could not read input image");
+				break;
+			}
+
+			cvipImage = histThresh_Setup(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "hist thresh fails");
+				break;
+			}
+
+			view_Image(cvipImage, "Hist Thresh Segment");
+
+			delete_Image(cvipImage);
+
+			break;
+
 			default:
 			print_CVIP("Sorry ! You Entered a wrong choice ");
 			break;
@@ -424,4 +472,15 @@ Image *roberts_Setup(Image *inputImage){
 
 Image *sobel_Setup(Image *inputImage){
 	return sobel(inputImage);
+}
+
+Image *fuzzy_Setup(Image *inputImage) {
+	float variance;
+	print_CVIP("\n\t\tEnter a number for the variance (0 to 20)");
+	variance = getFloat_CVIP(0, 20);
+	return fuzzyc_segment(inputImage, variance);
+}
+
+Image *histThresh_Setup(Image *inputImage) {
+	return hist_thresh_segment(inputImage);
 }
