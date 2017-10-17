@@ -48,6 +48,10 @@ application program */
 /*
 ** function declarations
 */
+Image *closing_Setup(Image *inputImage);
+Image *opening_Setup(Image *inputImage);
+Image *erosion_Setup(Image *inputImage);
+Image *dilation_Setup(Image *inputImage);
 Image *histThresh_Setup(Image *inputImage);
 Image *fuzzy_Setup(Image *inputImage);
 Image *sobel_Setup(Image *inputImage);
@@ -483,4 +487,48 @@ Image *fuzzy_Setup(Image *inputImage) {
 
 Image *histThresh_Setup(Image *inputImage) {
 	return hist_thresh_segment(inputImage);
+}
+
+Image *dilation_Setup(Image *inputImage){
+	byte **structuringElement[3][3];
+	print_CVIP("\n\t\tPlease enter 9 0s or 1s: ");
+	for(int i = 0; i < 3; i++){
+		for(int j = 0; j < 3; j++){
+			structuringElement[i][j] = getInt_CVIP(10, 0, 1);
+		}
+	}
+	return dilation(inputImage, structuringElement);
+}
+
+Image *erosion_Setup(Image *inputImage){
+	byte **structuringElement[3][3];
+	print_CVIP("\n\t\tPlease enter 9 0s or 1s: ");
+	for(int i = 0; i < 3; i++){
+		for(int j = 0; j < 3; j++){
+			structuringElement[i][j] = getInt_CVIP(10, 0, 1);
+		}
+	}
+	return erosion(inputImage, structuringElement);
+}
+
+Image *opening_Setup(Image *inputImage){
+	byte **structuringElement[3][3];
+	print_CVIP("\n\t\tPlease enter 9 0s or 1s: ");
+	for(int i = 0; i < 3; i++){
+		for(int j = 0; j < 3; j++){
+			structuringElement[i][j] = getInt_CVIP(10, 0, 1);
+		}
+	}
+	return dilation(erosion(inputImage, structuringElement), structuringElement);
+}
+
+Image *closing_Setup(Image *inputImage){
+	byte **structuringElement[3][3];
+	print_CVIP("\n\t\tPlease enter 9 0s or 1s: ");
+	for(int i = 0; i < 3; i++){
+		for(int j = 0; j < 3; j++){
+			structuringElement[i][j] = getInt_CVIP(10, 0, 1);
+		}
+	}
+	return erosion(dilation(inputImage, structuringElement), structuringElement);
 }
