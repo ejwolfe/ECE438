@@ -94,7 +94,11 @@ void main_cviplab() {
 		print_CVIP("\t\t8.\tEdge detection with Roberts\n");
 		print_CVIP("\t\t9.\tEdge detection with Sobel\n");
 		print_CVIP("\t\t10.\tFuzzy C Segment\n");
-		print_CVIP("\t\t11.\tHist Thresh Segment");
+		print_CVIP("\t\t11.\tHist Thresh Segment\n");
+		print_CVIP("\t\t12.\tDilation\n");
+		print_CVIP("\t\t13.\tErosion\n");
+		print_CVIP("\t\t14.\tOpening\n");
+		print_CVIP("\t\t15.\tClsoing\n");
 		print_CVIP("\n\nCVIPlab>>");
 
 
@@ -329,6 +333,90 @@ void main_cviplab() {
 
 			break;
 
+		case 12:
+			/*Get the input image */
+			cvipImage = input();
+			if (cvipImage == NULL)
+			{
+				error_CVIP("main", "could not read input image");
+				break;
+			}
+
+			cvipImage = dilation_Setup(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "dilation fails");
+				break;
+			}
+
+			view_Image(cvipImage, "Dilation");
+
+			delete_Image(cvipImage);
+
+			break;
+
+		case 13:
+			/*Get the input image */
+			cvipImage = input();
+			if (cvipImage == NULL)
+			{
+				error_CVIP("main", "could not read input image");
+				break;
+			}
+
+			cvipImage = erosion_Setup(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "erosion fails");
+				break;
+			}
+
+			view_Image(cvipImage, "Erosion");
+
+			delete_Image(cvipImage);
+
+			break;
+
+		case 14:
+			/*Get the input image */
+			cvipImage = input();
+			if (cvipImage == NULL)
+			{
+				error_CVIP("main", "could not read input image");
+				break;
+			}
+
+			cvipImage = opening_Setup(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "opening fails");
+				break;
+			}
+
+			view_Image(cvipImage, "Opening");
+
+			delete_Image(cvipImage);
+
+			break;
+
+		case 15:
+			/*Get the input image */
+			cvipImage = input();
+			if (cvipImage == NULL)
+			{
+				error_CVIP("main", "could not read input image");
+				break;
+			}
+
+			cvipImage = closing_Setup(cvipImage);
+			if (!cvipImage) {
+				error_CVIP("main", "Closing fails");
+				break;
+			}
+
+			view_Image(cvipImage, "Closing");
+
+			delete_Image(cvipImage);
+
+			break;
+
 			default:
 			print_CVIP("Sorry ! You Entered a wrong choice ");
 			break;
@@ -490,7 +578,7 @@ Image *histThresh_Setup(Image *inputImage) {
 }
 
 Image *dilation_Setup(Image *inputImage){
-	byte **structuringElement[3][3];
+	int structuringElement[3][3];
 	print_CVIP("\n\t\tPlease enter 9 0s or 1s: ");
 	for(int i = 0; i < 3; i++){
 		for(int j = 0; j < 3; j++){

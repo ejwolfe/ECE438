@@ -8,14 +8,14 @@
 #include "CVIPimage.h"
 #include "CVIPlab.h"
 
-Image *erosion(Image *inputImage, byte **structuringElement){
+Image *erosion(Image *inputImage, int structuringElement[][3]){
     Image *outputImage;
 	byte **inputData;
-    byte **outputData;
+    int **outputData;
     unsigned int numberRows = getNoOfRows_Image(inputImage);
     unsigned int numberCols = getNoOfCols_Image(inputImage);
     unsigned int numberBands = getNoOfBands_Image(inputImage);
-    outputImage = new_Image(PGM, GRAY_SCALE, numberBands, numberRows, numberCols, CVIP_BYTE, REAL);
+    outputImage = new_Image(PGM, GRAY_SCALE, numberBands, numberRows, numberCols, CVIP_INTEGER, REAL);
 	for (int bands = 0; bands < numberBands; bands++) {
         inputData = getData_Image(inputImage, bands);
         outputData = getData_Image(outputImage, bands);
