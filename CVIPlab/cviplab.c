@@ -589,7 +589,7 @@ Image *dilation_Setup(Image *inputImage){
 }
 
 Image *erosion_Setup(Image *inputImage){
-	byte **structuringElement[3][3];
+	int structuringElement[3][3];
 	print_CVIP("\n\t\tPlease enter 9 0s or 1s: ");
 	for(int i = 0; i < 3; i++){
 		for(int j = 0; j < 3; j++){
@@ -600,7 +600,7 @@ Image *erosion_Setup(Image *inputImage){
 }
 
 Image *opening_Setup(Image *inputImage){
-	byte **structuringElement[3][3];
+	int structuringElement[3][3];
 	print_CVIP("\n\t\tPlease enter 9 0s or 1s: ");
 	for(int i = 0; i < 3; i++){
 		for(int j = 0; j < 3; j++){
@@ -611,7 +611,7 @@ Image *opening_Setup(Image *inputImage){
 }
 
 Image *closing_Setup(Image *inputImage){
-	byte **structuringElement[3][3];
+	int structuringElement[3][3];
 	print_CVIP("\n\t\tPlease enter 9 0s or 1s: ");
 	for(int i = 0; i < 3; i++){
 		for(int j = 0; j < 3; j++){
