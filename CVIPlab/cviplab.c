@@ -8,7 +8,7 @@
 *           Description: This  is the skeleton program for the Computer Vision
 *			 and Image Processing Labs
 *   Initial Coding Date: April 23, 1996
-*   Last update Date: September 20, 2017
+*   Last update Date: October 26, 2017
 *   .NET version:     September 21, 2006
 *           Portability: Standard (ANSI) C
 *             Credit(s): Scott Umbaugh, Zhen Li, Kun Luo,Dejun Zhang,Wenjun(Evan) Bian, Rohini Dahal, Norsang Lama
@@ -98,7 +98,7 @@ void main_cviplab() {
 		print_CVIP("\t\t12.\tDilation\n");
 		print_CVIP("\t\t13.\tErosion\n");
 		print_CVIP("\t\t14.\tOpening\n");
-		print_CVIP("\t\t15.\tClsoing\n");
+		print_CVIP("\t\t15.\tClosing\n");
 		print_CVIP("\n\nCVIPlab>>");
 
 
